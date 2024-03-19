@@ -1,5 +1,4 @@
 #Include globalVar.ahk
-#Include tool.ahk
 
 InstallKeybdHook()
 ProcessSetPriority "High"
@@ -7,14 +6,7 @@ SetStoreCapslockMode false
 ;Suspend 1 ; 禁用或启用所有的或选择的热键和热字串.
 SetWorkingDir A_ScriptDir
 CoordMode "Mouse", "Screen"
-; FileInstall "Pet.ini", ConfigPath, 0
-
-; 判断是否第一次在生产活动中运行
-; if (A_IsCompiled = 1 and _Stranger != 0) {
-;     Run "notepad %A_ScriptDir%\Pet.ini"
-;     PetWrite("Stranger", "0", ConfigPath)
-; }
-
+FileInstall "Config.ini", ConfigPath, 0
 
 ; 判断是否启用Space热键模式
 if (_Space)

@@ -1,11 +1,12 @@
 #Include iniRead.ahk
 
-global ConfigPath := A_ScriptDir "\test.ini"
+global ConfigPath := A_ScriptDir "\config.ini"
 global PetMap := readFromIni(ConfigPath, "Pet")
 Temp := ReadSpaceMap(ConfigPath)
 global SpaceMap := Temp[1]
 global ShiftSpaceMap := Temp[2]
 global CapsLockMap := ReadCapsLockMap(ConfigPath)
+global CommandMap := ReadCommandkMap(ConfigPath)
 /**是否显示托盘图标 */
 global _TrayVisible := PetMap.Get("TrayVisible")
 /**是否显示欢迎界面 */

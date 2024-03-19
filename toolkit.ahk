@@ -1,5 +1,3 @@
-#Include tool.ahk
-
 ; 将data中的{pet}替换为粘贴板的内容并运行
 Open(data) {
     position := InStr(data, "{Pet}")

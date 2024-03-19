@@ -38,16 +38,21 @@ Lisrary(input) {
  * @param input 接受的字符串
  */
 extendAbbr(input) {
-    if (input = "JS")
-        Send("{Text}JavaScript")
-    else if (input = "otoh")
-        Send("{on the other hand")
-    else if (input = "fl")
-        Send("Florida")
-    else if (input = "ca")
-        Send("California")
-    else if (input = "ahk")
-        Run("https://www.autohotkey.com")
+    if (CommandMap.Has(input)){
+        v := CommandMap.Get(input)
+        methodName := v[1]
+        methodParam := v[2]
+        try {
+            if v[2] = '' {
+                %methodName%()
+            } else {
+                %methodName%(methodParam)
+            }
+        } catch Error as e {
+            ToolTip("failure to execute "  methodName " param is " methodParam "ERROR" e.Message)
+            SetTimer(() => ToolTip(), -5000)
+        }
+    }
     else {
         ToolTip "not set: " input
         SetTimer(() => ToolTip(), -3000)

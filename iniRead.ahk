@@ -8,13 +8,6 @@ PetWrite(key, value, ConfigPath) {
     IniWrite value, ConfigPath, "Pet", key
 }
 
-
-/**
- * 从ini中读取配置
- * @param ConfigPath 文件路径
- * @param section 片段
- * @returns {Map} 将所有键值对包装进Map返回
- */
 readFromIni(ConfigPath, section) {
     confStr := IniRead(ConfigPath, section)
     confStrArray := StrSplit(confStr, '`n')
@@ -30,11 +23,6 @@ readFromIni(ConfigPath, section) {
     return confMap
 }
 
-/**
- * 从ini中读取按键配置
- * @param ConfigPath 文件路径
- * @returns {Array} [spaceMap, shiftSpaceMap]
- */
 ReadSpaceMap(ConfigPath) {
     confMap := readFromIni(ConfigPath, "Space")
     spaceMap := Map()
@@ -56,42 +44,19 @@ ReadSpaceMap(ConfigPath) {
         for k, v in confMap {
             k := kCheck(k)
             K := "Space & " K
-            position := InStr(v, "$")
-            if (position > 0) {
-                methodName := SubStr(v, 1, position - 1)
-                methodParam := SubStr(v, position + 1)
-                v := [methodName, methodParam]
-            } else if (position = 0) {
-                v := [v, '']
-            } else {
-                v := ["MsgBox", "not set"]
-            }
+            v := vProcess(v)
             resultMap.Set(k, v)
         }
         return resultMap
     }
 }
 
-/**
- * 从ini中读取按键配置
- * @param ConfigPath 文件路径
- * @returns {Map} 将所有键值对包装进Map返回
- */
 ReadCapsLockMap(ConfigPath) {
     confMap := readFromIni(ConfigPath, "CapsLock")
     resultMap := Map()
     for k, v in confMap {
         k := kCheck(k)
-        position := InStr(v, "$")
-        if (position > 0) {
-            methodName := SubStr(v, 1, position - 1)
-            methodParam := SubStr(v, position + 1)
-            v := [methodName, methodParam]
-        } else if (position = 0) {
-            v := [v, '']
-        } else {
-            v := ["MsgBox", "not set"]
-        }
+        v := vProcess(v)
         resultMap.Set(k, v)
     }
     return resultMap
@@ -99,61 +64,12 @@ ReadCapsLockMap(ConfigPath) {
 }
 
 
-
-
-/**
- * 从ini中读取按键配置
- * @param ConfigPath 文件路径
- * @param section 片段
- * @param ischeck 是否对键进行方法检查 0 不检查 1 检查$符号 
- * @returns {Map} 将所有键值对包装进Map返回
- */
-readCommondMap(ConfigPath, section) {
-    confMap := readFromIni(ConfigPath, "Space")
+ReadCommandkMap(ConfigPath) {
+    confMap := readFromIni(ConfigPath, "Command")
     for k, v in confMap {
-        k := kCheck(k)
-        K := section " & " K
-        position := InStr(v, "$")
-        if (position > 0) {
-            methodName := SubStr(v, 1, position - 1)
-            methodParam := SubStr(v, position + 1)
-            v := [methodName, methodParam]
-        } else if (position = 0) {
-            v := [v, '']
-        } else {
-            v := ["MsgBox", "not set"]
-        }
-        confMap.Set(k, v)
+        v := vProcess(v)
     }
     return confMap
-
-    kCheck(k) {
-        if (k = "_fyh") {
-            k := "``"
-            return k
-        }
-        if (k = "_dyh") {
-            k := "="
-            return k
-        }
-        if (k = "_;") {
-            k := ";"
-            return k
-        }
-        if (k = "_'") {
-            k := "`'"
-            return k
-        }
-        if (k = "_[") {
-            k := "["
-            return k
-        }
-        if (k = "_]") {
-            K := "]"
-            return k
-        }
-        return k
-    }
 
 }
 
@@ -189,4 +105,18 @@ kCheck(k) {
         return k
     }
     return k
+}
+
+vProcess(v) {
+    position := InStr(v, "$")
+    if (position > 0) {
+        methodName := SubStr(v, 1, position - 1)
+        methodParam := SubStr(v, position + 1)
+        v := [methodName, methodParam]
+    } else if (position = 0) {
+        v := [v, '']
+    } else {
+        v := ["MsgBox", "not set"]
+    }
+    return v
 }
