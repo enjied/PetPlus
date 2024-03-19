@@ -43,12 +43,34 @@ isSpaceMode(*)
 }
 
 HotIf isSpaceMode
-for (k, v in SpaceMap) {
-    ; MsgBox(k " : " SpaceMap.Get(k))
-    cb(key) 
-    {
-        Send("{Blind}" . SpaceMap.Get(key))
+; for (k, v in SpaceMap) {
+;     cb(key) 
+;     {
+;         Send("{Blind}" . SpaceMap.Get(key))
+;     }
+;     Hotkey k , cb
+; }
+cb(key) 
+{
+    v := SpaceMap.Get(key)
+    methodName := v[1]
+    methodParam := v[2]
+    try {
+        %methodName%(methodParam)
+    } catch Error as e {
+        ToolTip("failure to execute "  methodName " param is " methodParam)
+        SetTimer(() => ToolTip(), -5000)
     }
-    Hotkey k , cb
+}
+for (k, v in SpaceMap) {
+    Hotkey k, cb
+}
+; '::
+; {
+;     Send "{Text}'"
+; }
++'::
+{
+    Send "{Text}`""
 }
 HotIf

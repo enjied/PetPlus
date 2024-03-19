@@ -1,5 +1,5 @@
-#Include globalVar.ahk
-#Include toolkit.ahk
+#Include ../globalVar.ahk
+#Include ../toolkit.ahk
 
 ; capslock状态
 CapsLockState := 0
@@ -30,7 +30,6 @@ isCapsLockState(*)
 
 HotIf isCapsLockState
 for (k, v in CapsLockMap) {
-    ; MsgBox(k " : " SpaceMap.Get(k))
     cbSend(key) 
     {
         Send("{Blind}" . SpaceMap.Get(key))
