@@ -40,7 +40,7 @@ ReadCapsLockMap(ConfigPath) {
 ReadCommandkMap(ConfigPath) {
     confMap := readFromIni(ConfigPath, "Command")
     for k, v in confMap {
-        v := vProcess(v)
+        confMap.set(k, vProcess(v)) 
     }
     return confMap
 
