@@ -6,7 +6,6 @@ SetStoreCapslockMode false
 ;Suspend 1 ; 禁用或启用所有的或选择的热键和热字串.
 SetWorkingDir A_ScriptDir
 CoordMode "Mouse", "Screen"
-FileInstall "Config.ini", ConfigPath, 0
 
 ; 判断是否启用Space热键模式
 if (_Space)
@@ -45,4 +44,10 @@ if (_Welcome) {
     Welcome()
 }
 
+; 判断是否首次启动
+if (_Stranger)
+{
+    Run A_ScriptDir "\petconfig.ini"
+    IniWrite(0, ConfigPath, "Pet", "Stranger")
+}
 ;================= END SCRIPT ===================

@@ -2,7 +2,7 @@
 #Include ../globalVar.ahk
 
 ; HotIF不支持表达式，只支持回调函数
-HotIf  isModifierKeysUpAndSpacePower
+HotIf  isModifierKeysUp
 Space::
 {
     Send "{Space}"
@@ -12,43 +12,45 @@ for (k, v in SpaceMap) {
 }
 HotIf
 
-if (_PunctuationZh2En)
-{
-    #HotIf GetKeyState("Shift", 'P')
-    Space & `;::
-    {
-        Send("{Text}:")
-    }
-    Space & /::
-    {
-        Send("{Text}?")
-    }
-    Space & '::
-    {
-        Send("{Text}`"")
-    }
-    Space & -::
-    {
-        Send("{Text}_")
-    }
-    #HotIf
-    
+
+
+HotIf isShiftDown
+for (k, v in SpaceMap) {
+    Hotkey k, cbSpace
 }
+HotIf
+    
+
 
 /**
- * HotIf的回调函数
+ * 修饰键状态，当所有修饰键都没按下时，返回true
  * @param n 不清楚
  */
-isModifierKeysUpAndSpacePower(n)
+isModifierKeysUp(n)
 {
     return 
     !(
-        !_Space ||
         GetKeyState("LWin", 'P') || 
         GetKeyState("RWin", 'P') ||
         GetKeyState("Ctrl", 'P') || 
         GetKeyState("Alt", 'P') ||
         GetKeyState("Shift", 'P')
+    )
+}
+
+/**
+ * 修饰键状态，当只有shift按下时时，返回true
+ * @param n 不清楚
+ */
+isShiftDown(n)
+{
+    return 
+    !(
+        GetKeyState("LWin", 'P') || 
+        GetKeyState("RWin", 'P') ||
+        GetKeyState("Ctrl", 'P') || 
+        GetKeyState("Alt", 'P') ||
+        !GetKeyState("Shift", 'P')
     )
 }
 
