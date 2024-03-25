@@ -1,4 +1,9 @@
 global ConfigPath := A_ScriptDir "\config.ini"
+try {
+    FileInstall "config.ini", ConfigPath, 0
+} catch Error as e {
+
+}
 
 #Include globalVar.ahk
 
@@ -46,10 +51,4 @@ if (_Welcome) {
     Welcome()
 }
 
-; 判断是否首次启动
-if (_Stranger)
-{
-    Run A_ScriptDir "\petconfig.ini"
-    IniWrite(0, ConfigPath, "Pet", "Stranger")
-}
 ;================= END SCRIPT ===================
