@@ -2,6 +2,7 @@
 #Include ../toolkit.ahk
 
 global isCapsLock := 0
+global _PetLock := 0
 $CapsLock::
 {
     global

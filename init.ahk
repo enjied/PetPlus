@@ -1,10 +1,3 @@
-global ConfigPath := A_ScriptDir "\config.ini"
-try {
-    FileInstall "config.ini", ConfigPath, 0
-} catch Error as e {
-
-}
-
 #Include globalVar.ahk
 
 InstallKeybdHook()

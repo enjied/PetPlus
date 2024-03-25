@@ -16,12 +16,10 @@ CopyOpen(data) {
 
 }
 
-TopMost() {
-
+ToTop() {
     ; 参数A指定活动窗口
     ExStyle := WinGetExStyle('A')
-    WinSetAlwaysOnTop -1, 'A'
-    ; 0x8 为 WS_EX_TOPMOST
+    WinSetAlwaysOnTop(-1, 'A')
     if (ExStyle & 0x8) {
         ToolTip("取消置顶")
     } else {
@@ -31,17 +29,19 @@ TopMost() {
 }
 
 PetLock() {
-    MsgBox("lock")
+    global
+    KeyWait("CapsLock")
+    if (_PetLock) {
+        ToolTip("禁用锁")
+        BlockInput("Off")
+        _PetLock := 0
+    } else {
+        ToolTip("启用锁")
+        BlockInput("On")
+        _PetLock := 1
+    }
+    SetTimer(ToolTip, -1000)
 }
-
-SetTransparent(data) {
-    MsgBox(data)
-}
-
-MouseClick(data) {
-    MsgBox(data)
-}
-
 
 Config() {
     Run A_ScriptDir "\petconfig.ini"
@@ -70,7 +70,7 @@ HideTray() {
 }
 
 /**
- * 以管理员身份重启应用
+ * 重启应用
  */
 ReloadPet() {
     try

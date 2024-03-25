@@ -3,9 +3,9 @@
  */
 Welcome() {
     welcomeGui := Gui("+LastFound + AlwaysOnTop - Caption + ToolWindow")
-    welcomeGui.BackColor := "EB6796"
+    welcomeGui.BackColor := "67a9eb"
     welcomeGui.SetFont("cwhite s60 bold q5", "Segoe UI")
-    welcomeGui.Add("Text", , "Pet")
+    welcomeGui.Add("Text", , "PetPlus")
     welcomeGui.Show("AutoSize Center NoActivate")
     Sleep(800)
     welcomeGui.Destroy()

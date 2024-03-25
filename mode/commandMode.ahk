@@ -1,37 +1,21 @@
 #Include ../globalVar.ahk
+#Include ../toolkit.ahk
 
 #HotIf isModifierAndSpaceKeysUp()
 $'::
 {
     global UserInput := InputHook()
-    ; SetTimer(FastKey, 100)
     UserInput.Start()
     KeyWait("'")
     UserInput.Stop()
     if (A_TimeSinceThisHotkey < 300) {
         SendInput("{Blind}{'}")
     } else {
-        ; Lisrary(UserInput.Input)
         extendAbbr(UserInput.Input)
     }
     Return
 }
 #HotIf
-
-/**
- * 将解释的字符串通过Run打开
- * @param input 接受的字符串
- */
-Lisrary(input) {
-    if (input == "")
-        return
-    try {
-        Run input
-    } catch {
-        ToolTip "don't run: " input
-        SetTimer(() => ToolTip(), -3000)
-    }
-}
 
 /**
  * 指定缩写与对应的行为
@@ -49,7 +33,7 @@ extendAbbr(input) {
                 %methodName%(methodParam)
             }
         } catch Error as e {
-            ToolTip("failure to execute "  methodName " param is " methodParam "ERROR" e.Message)
+            ToolTip("failure to execute "  methodName " param is " methodParam "`nERROR" e.Message)
             SetTimer(() => ToolTip(), -5000)
         }
     }
