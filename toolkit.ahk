@@ -30,6 +30,10 @@ ToTop() {
 
 PetLock() {
     global
+    if (!A_IsAdmin) {
+        MsgBox("以管理员身份运行时才能启用锁")
+        return
+    }
     KeyWait("CapsLock")
     if (_PetLock) {
         ToolTip("禁用锁")
