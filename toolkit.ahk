@@ -30,7 +30,7 @@ TopMost() {
     SetTimer(ToolTip, -1000)
 }
 
-PetLock(data) {
+PetLock() {
     MsgBox("lock")
 }
 
@@ -44,7 +44,7 @@ MouseClick(data) {
 
 
 Config() {
-    Run A_ScriptDir "\test.ini"
+    Run A_ScriptDir "\petconfig.ini"
 }
 
 OpenFilePath() {
@@ -57,12 +57,12 @@ OpenFilePath() {
 HideTray() {
     if A_IconHidden {
         A_IconHidden := 0
-        PetWrite("TrayVisible", 1, ConfigPath)
+        IniWrite(1, ConfigPath, "Pet", "TrayVisible")
         ToolTip("显示托盘图标")
         ; Menu,Tray,UnCheck,%Tray_Visible%
     } else {
         A_IconHidden := 1
-        PetWrite("TrayVisible", 0, ConfigPath)
+        IniWrite(0, ConfigPath, "Pet", "TrayVisible")
         ToolTip("隐藏托盘图标")
         ; Menu,Tray,Check,%Tray_Visible%
     }

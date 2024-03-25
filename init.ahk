@@ -46,4 +46,10 @@ if (_Welcome) {
     Welcome()
 }
 
+; 判断是否首次启动
+if (_Stranger)
+{
+    Run A_ScriptDir "\petconfig.ini"
+    IniWrite(0, ConfigPath, "Pet", "Stranger")
+}
 ;================= END SCRIPT ===================

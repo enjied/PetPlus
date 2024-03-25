@@ -1,28 +1,3 @@
-/**
- * 读写ini中Pet setction中的配置
- * @param key 要写入的配置
- * @param value 要写入的值
- * @param ConfigPath 文件位置
- */
-PetWrite(key, value, ConfigPath) {
-    IniWrite value, ConfigPath, "Pet", key
-}
-
-readFromIni(ConfigPath, section) {
-    confStr := IniRead(ConfigPath, section)
-    confStrArray := StrSplit(confStr, '`n')
-    confMap := Map()
-    for elem in confStrArray {
-        ; 找到最右边的等号
-        lastdh := InStr(elem, '=', , 1,)
-        ; 截取等号两边的字符串
-        k := SubStr(elem, 1, lastdh - 1)
-        v := SubStr(elem, lastdh + 1, StrLen(elem) - lastdh)
-        confMap.Set(k, v)
-    }
-    return confMap
-}
-
 ReadSpaceMap(ConfigPath) {
     confMap := readFromIni(ConfigPath, "Space")
     spaceMap := Map()
@@ -60,9 +35,7 @@ ReadCapsLockMap(ConfigPath) {
         resultMap.Set(k, v)
     }
     return resultMap
-
 }
-
 
 ReadCommandkMap(ConfigPath) {
     confMap := readFromIni(ConfigPath, "Command")
@@ -72,7 +45,6 @@ ReadCommandkMap(ConfigPath) {
     return confMap
 
 }
-
 
 /**
  * 
@@ -119,4 +91,19 @@ vProcess(v) {
         v := ["MsgBox", "not set"]
     }
     return v
+}
+
+readFromIni(ConfigPath, section) {
+    confStr := IniRead(ConfigPath, section)
+    confStrArray := StrSplit(confStr, '`n')
+    confMap := Map()
+    for elem in confStrArray {
+        ; 找到最右边的等号
+        lastdh := InStr(elem, '=', , 1,)
+        ; 截取等号两边的字符串
+        k := SubStr(elem, 1, lastdh - 1)
+        v := SubStr(elem, lastdh + 1, StrLen(elem) - lastdh)
+        confMap.Set(k, v)
+    }
+    return confMap
 }
