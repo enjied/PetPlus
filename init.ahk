@@ -1,3 +1,5 @@
+global ConfigPath := A_ScriptDir "\config.ini"
+
 #Include globalVar.ahk
 
 InstallKeybdHook()
@@ -6,7 +8,6 @@ SetStoreCapslockMode false
 ;Suspend 1 ; 禁用或启用所有的或选择的热键和热字串.
 SetWorkingDir A_ScriptDir
 CoordMode "Mouse", "Screen"
-FileInstall "Config.ini", ConfigPath, 0
 
 ; 判断是否启用Space热键模式
 if (_Space)
